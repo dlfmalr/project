@@ -1,0 +1,33 @@
+<nav th:fragment="navbarFragment" class="navbar navbar-expand-lg bg-warning border-bottom">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <i class="fa-solid fa-briefcase"></i>
+        </a>
+        <a class="navbar-brand" href="/company/search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <tr>
+                    <li class="nav-item">
+                        <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/login}">로그인</a>
+                        <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}">로그아웃</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/signup}">회원가입</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/company/create}">회사등록</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/profile}">프로필</a>
+                    </li>
+                </tr>
+            </ul>
+        </div>
+    </div>
+</nav>

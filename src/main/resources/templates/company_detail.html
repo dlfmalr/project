@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko" layout:decorate="~{layout}">
+<div layout:fragment="content">
+    <!-- 질문 -->
+    <div class="card my-3" th:if="${company != null}">
+        <div class="card-body" style="width:800px; height:250px;">
+            <img th:src="@{|${company.url}|}" alt="회사이미지" style="width:200px; height:100%;">
+            <div class="card-text" style="white-space: pre-line;" th:text="${company.name}"></div>
+        </div>
+    </div>
+    <div style="display: flex; gap: 10px;">
+        <form action="#">
+            <input type="submit" class="btn" value="리뷰">
+        </form>
+        <form action="#">
+            <input type="submit" class="btn" value="게시판">
+        </form>
+    </div>
+    <!-- 리뷰 반복 시작 -->
+    <div class="card my-3" th:each="review : ${company.reviewList}">
+        <div class="card-body">
+            <div class="card-text font-bold" style="white-space: pre-line;" th:text="${review.title}"></div>
+            <div class="card-text" style="white-space: pre-line;" th:text="${review.content}"></div>
+            <p><span class="font-bold" style="color: red;">장점</span></p>
+            <div class="card-text" style="white-space: pre-line;" th:text="${review.good}"></div>
+            <p><span class="font-bold" style="color: blue;">단점</span></p>
+            <div class="card-text" style="white-space: pre-line;" th:text="${review.bad}"></div>
+            <div class="d-flex justify-content-end">
+                <div class="badge bg-light text-dark p-2 text-start">
+                    <div th:text="${#temporals.format(review.createDate, 'yyyy-MM')}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 리뷰 반복 끝  -->
+    <!-- 질문 반복 시작 -->
+    <div class="card my-3" th:each="question : ${company.questionList}">
+        <a th:href="@{|/question/${question.id}|}" class="card-link">
+            <div class="card-body">
+                <div class="card-text font-bold" style="white-space: pre-line;" th:text="${question.subject}"></div>
+                <div class="card-text" style="white-space: pre-line;" th:text="${question.content}"></div>
+                <div class="d-flex justify-content-end">
+                    <div class="badge bg-light text-dark p-2 text-start">
+                        <div th:text="${#temporals.format(question.createDate, 'yyyy-MM')}"></div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <!-- 질문 반복 끝 -->
+    <!-- 리뷰 작성 -->
+    <a th:href="@{|/review/create/${company.id}|}" class="btn">리뷰쓰기</a>
+    <!-- 질문 작성 -->
+    <a th:href="@{|/question/create/${company.id}|}" class="btn">질문등록</a>
+</div>
+</html>

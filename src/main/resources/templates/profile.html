@@ -1,0 +1,56 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container my-3">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.10.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <div class="stats shadow ml-96">
+
+        <div class="stat">
+            <div class="stat-figure text-primary"></div>
+            <div>
+                <a href="/profile" class="stat-value text-primary"></a>
+            </div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-figure text-secondary">
+                <div class="avatar online">
+                    <div class="w-16 rounded-full">
+                        <img id="profile_img" th:src="@{|${url!=null?url:'/image/hui.jpg'}|}" />
+                    </div>
+                </div>
+            </div>
+            <div class="stat-value " th:text="${member.loginId}"></div>
+        </div>
+
+        <form id="image_form" th:action="@{|/imageform|}" method="post" enctype="multipart/form-data">
+            <input id="file" type="file"  name="file" style="display: none;">
+        </form>
+        <form id="image_save_form" th:action="@{|/imagesaveform|}" method="post">
+            <input type="hidden" name="url" th:value="${url}">
+            <input type="submit" value="변경사항 저장">
+        </form>
+    </div>
+
+    <table class="table">
+        <thead class="table-dark">
+        <tr class="text-center">
+            <th>번호</th>
+            <th style="width:50%">제목</th>
+            <th>글쓴이</th>
+            <th>작성일시</th>
+            <th>카테고리</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+<script layout:fragment="script">
+    const profile_img = document.getElementById('profile_img');
+    profile_img.addEventListener('click', ()=>{
+        document.getElementById('file').click();
+    });
+    const file = document.getElementById('file');
+    file.addEventListener('change', ()=>{
+        document.getElementById('image_form').submit();
+    });
+</script>
+</html>

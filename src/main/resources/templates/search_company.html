@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko" layout:decorate="~{layout}">
+<div layout:fragment="content">
+    <form th:action="@{/company/search}" method="post">
+        <input type="text" name="name" class="input">
+        <input type="submit" class="btn">
+    </form>
+
+    <!-- 회사 반복 시작 -->
+    <div class="card my-3" th:if="${searchCompany != null}" th:each="company : ${searchCompany}">
+        <a th:href="@{|/company/${company.id}|}" class="card-link">
+            <div class="card-body flex flex-row items-center">
+                <img th:src="@{|${company.url}|}" alt="회사이미지">
+                <div class="card-text" style="white-space: pre-line;" th:text="${company.name}"></div>
+            </div>
+        </a>
+    </div>
+    <!--회사 반복 끝-->
+</div>
+</html>

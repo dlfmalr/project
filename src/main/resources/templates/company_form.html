@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="ko" layout:decorate="~{layout}">
+<div layout:fragment="content">
+    <form th:action="@{/company/create}" th:object="${companyForm}" method="post" enctype="multipart/form-data">
+        <input type="text" name="name" class="input" th:field="*{name}" placeholder="이름">
+        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+        <input type="file" name="file">
+        <input type="submit" class="btn" value="회사등록">
+    </form>
+</div>
+</html>

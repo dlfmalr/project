@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="ko" layout:decorate="~{layout}">
+<div layout:fragment="content">
+    <form th:action="@{|/question/create/${id}|}" th:object="${questionForm}" method="post">
+        <input type="text" name="subject" class="input" th:field="*{subject}" placeholder="제목">
+        <p th:if="${#fields.hasErrors('subject')}" th:errors="*{subject}"></p>
+        <input type="text" name="content" class="input" th:field="*{content}" placeholder="내용">
+        <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></p>
+        <input type="submit" class="btn" value="질문등록">
+    </form>
+</div>
+</html>

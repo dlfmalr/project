@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko" layout:decorate="~{layout}">
+<div layout:fragment="content">
+    <style>
+        .rating {
+            display: inline-block;
+            font-size: 0;
+        }
+
+        .rating input {
+            display: none;
+        }
+
+        .rating label {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background-image: url('https://cdn.jsdelivr.net/npm/font-awesome@5.15.4/css/all.css');
+            background-size: contain;
+            cursor: pointer;
+            float: right;
+        }
+
+        .rating label:before {
+            content: "\f005";
+            font-family: FontAwesome;
+            font-size: 24px;
+            color: #ccc;
+        }
+
+        .rating input:checked ~ label:before {
+            color: #ffcc00;
+        }
+    </style>
+    <h1>회사 평가하기</h1>
+    <div class="rating">
+        <input type="radio" id="star5" name="rating" value="5">
+        <label for="star5">5 stars</label>
+        <input type="radio" id="star4" name="rating" value="4">
+        <label for="star4">4 stars</label>
+        <input type="radio" id="star3" name="rating" value="3">
+        <label for="star3">3 stars</label>
+        <input type="radio" id="star2" name="rating" value="2">
+        <label for="star2">2 stars</label>
+        <input type="radio" id="star1" name="rating" value="1">
+        <label for="star1">1 star</label>
+    </div>
+    <form th:action="@{|/review/create/${id}|}" th:object="${reviewForm}" method="post">
+        <input type="text" name="title" class="input" th:field="*{title}" placeholder="제목">
+        <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
+        <input type="text" name="content" class="input" th:field="*{content}" placeholder="내용">
+        <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></p>
+        <input type="text" name="good" class="input" th:field="*{good}" placeholder="장점">
+        <p th:if="${#fields.hasErrors('good')}" th:errors="*{good}"></p>
+        <input type="text" name="bad" class="input" th:field="*{bad}" placeholder="단점">
+        <p th:if="${#fields.hasErrors('bad')}" th:errors="*{bad}"></p>
+        <input type="submit" class="btn" value="리뷰등록">
+    </form>
+</div>
+<script>
+    const ratings = document.querySelectorAll('.rating input');
+    let selectedRating;
+
+    ratings.forEach(rating => {
+        rating.addEventListener('click', () => {
+            selectedRating = rating.value;
+            console.log('Selected Rating:', selectedRating);
+        });
+    });
+</script>
+</html>
